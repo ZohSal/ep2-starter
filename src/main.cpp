@@ -22,6 +22,7 @@
 #include <Arduino.h>
 
 #define RGB_LED_PIN 38   // silkscreen: RGB@IO38
+#define EXT_LED_PIN 40
 #define SCOPE_PIN    2   // J3 pin 5, four pins down from GND — probe this one
 
 void setup() {
@@ -29,6 +30,8 @@ void setup() {
   delay(300);                                 // let serial come up before printing
   Serial.println();
   Serial.println("Hello from ESP32-S3 — the whole chain works!");
+  neopixelWrite(RGB_LED_PIN, 0, 0, 0);
+  pinMode(EXT_LED_PIN, OUTPUT);
 
   /*
    * A test signal for the oscilloscope.
@@ -50,11 +53,13 @@ void setup() {
 }
 
 void loop() {
-  neopixelWrite(RGB_LED_PIN, 0, 24, 0);       // dim green (r, g, b)
-  Serial.println("blink: on");
-  delay(500);
+  // Test HIGH state (2 seconds)
+  gpio_set_level((gpio_num_t)EXT_LED_PIN, 1);
+  Serial.println("GPIO 40 -> HIGH (3.3V)");
+  delay(300);
 
-  neopixelWrite(RGB_LED_PIN, 0, 0, 0);        // off
-  Serial.println("blink: off");
-  delay(500);
+  // Test LOW state (2 seconds)
+  gpio_set_level((gpio_num_t)EXT_LED_PIN, 0);
+  Serial.println("GPIO 40 -> LOW (0V)");
+  delay(300);
 }
