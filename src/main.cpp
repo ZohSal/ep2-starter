@@ -53,13 +53,19 @@ void setup() {
 }
 
 void loop() {
-  // Test HIGH state (2 seconds)
-  gpio_set_level((gpio_num_t)EXT_LED_PIN, 1);
-  Serial.println("GPIO 40 -> HIGH (3.3V)");
-  delay(300);
-
-  // Test LOW state (2 seconds)
-  gpio_set_level((gpio_num_t)EXT_LED_PIN, 0);
-  Serial.println("GPIO 40 -> LOW (0V)");
-  delay(300);
+  for (int i = 0; i < 5; i++) {
+    gpio_set_level((gpio_num_t)EXT_LED_PIN, 1);
+    delay(100);
+    gpio_set_level((gpio_num_t)EXT_LED_PIN, 0);
+    delay(100);
+  }
+  delay(500); 
+   
+  for (int i = 0; i < 5; i++) {
+    gpio_set_level((gpio_num_t)EXT_LED_PIN, 1);
+    delay(1000);
+    gpio_set_level((gpio_num_t)EXT_LED_PIN, 0);
+    delay(500);
+  }
+  delay(1000); 
 }
